@@ -117,7 +117,11 @@ if (typeof jQuery !== 'undefined') {
   };
 
   ResponsiveIframe.prototype.messageParent = function(scrollTop) {
-    var h = document.body.offsetHeight;
+    var body = document.body,
+    html = document.documentElement;
+    var h = Math.max( body.scrollHeight, body.offsetHeight, 
+                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+
     h = (scrollTop)? h+'s':h;
     if(top.postMessage){
       top.postMessage( h , '*');
